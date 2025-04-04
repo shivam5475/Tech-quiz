@@ -56,6 +56,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Define total_time globally
+TOTAL_TIME = 600  # 10 minutes in seconds
+
 # Full question bank with 100 questions
 questions = [
     # Algorithms (20 Questions)
@@ -200,8 +203,7 @@ if not st.session_state.quiz_started:
 elif not st.session_state.quiz_finished:
     # Timer logic
     elapsed_time = time.time() - st.session_state.start_time
-    total_time = 600  # 10 minutes in seconds
-    remaining_time = max(0, total_time - elapsed_time)
+    remaining_time = max(0, TOTAL_TIME - elapsed_time)
     
     if remaining_time <= 0:
         # Time's up, end the quiz
@@ -248,7 +250,7 @@ else:
     # Calculate time taken
     time_taken = st.session_state.end_time - st.session_state.start_time
     minutes, seconds = divmod(int(time_taken), 60)
-    result_message = "Time's up! Here are your results:" if time_taken >= total_time else "Quiz completed! Here are your results:"
+    result_message = "Time's up! Here are your results:" if time_taken >= TOTAL_TIME else "Quiz completed! Here are your results:"
     st.markdown(f"<p class='subtitle'>{result_message}<br>You scored {score} out of 10 in {minutes} minutes and {seconds} seconds.</p>", unsafe_allow_html=True)
     
     # Detailed feedback
